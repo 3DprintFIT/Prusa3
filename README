@@ -1,6 +1,8 @@
 This is Prusa iteration 3
 Published under GPL v3
 
+This repository containes modifications from 3DPritFIT, such as replacing extruder (now uses Greg-Wade-v3) and adding minitronic holder.
+
 To start:
 Copy configuration.scad.dist to configuration.scad and fill custom
 settings section there
