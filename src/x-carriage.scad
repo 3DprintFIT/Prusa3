@@ -5,7 +5,7 @@
 // http://www.reprap.org/wiki/Prusa_Mendel
 // http://prusamendel.org
 
-use <bearing.scad>
+use <inc/bearing.scad>
 
 module x_carriage_base(){
  // Small bearing holder
@@ -24,12 +24,12 @@ module x_carriage_beltcut(){
  // Cut clearing space for the belt
  translate([-38,5,7]) cube([40,13,15]);
  // Belt slit
- translate([-66,21.5+10,6]) cube([67,1,15]);
+ translate([-66,21.7+10,6]) cube([67,0.7,15]);
  // Smooth entrance
- translate([-66,21.5+10,14]) rotate([45,0,0]) cube([67,15,15]);
+ translate([-66,21.7+10,14]) rotate([45,0,0]) cube([67,15,15]);
  // Teeth cuts
  for ( i = [0 : 23] ){
-  translate([0-i*3,21.5+8,6]) cube([1.7,3,15]);
+  translate([0-i*2.7,21.5+8,6]) cube([1.5,2.8,15]);
  }
 }
 

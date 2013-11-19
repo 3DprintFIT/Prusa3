@@ -5,6 +5,7 @@
 // http://www.reprap.org/wiki/Prusa_Mendel
 // http://prusamendel.org
 
+include <inc/configuration.scad>
 
 module corner_base(){	
  translate([-9,-11,0])cube([18,22,47]);
@@ -13,18 +14,18 @@ module corner_base(){
 module corner_holes(){
  translate([-11,-11,0]){
   // Bottom hole
-  translate([0,11,10]) rotate([0,90,0]) translate([0,0,-5]) cylinder(h = 270, r=4.4, $fn=30);
+  translate([0,11,10]) rotate([0,90,0]) translate([0,0,-5]) cylinder(h = 270, r=threaded_rod_diameter_horizontal/2, $fn=30);
   // Top hole
-  translate([0,11,30]) rotate([0,90,0]) translate([0,0,-5]) cylinder(h = 270, r=4.4, $fn=30);
+  translate([0,11,30]) rotate([0,90,0]) translate([0,0,-5]) cylinder(h = 270, r=threaded_rod_diameter_horizontal/2, $fn=30);
   // Middle hole
-  translate([11,0,20]) rotate([0,0,90]) rotate([0,90,0]) translate([0,0,-5]) cylinder(h = 270, r=5.4, $fn=30);
+  translate([11,0,20]) rotate([0,0,90]) rotate([0,90,0]) translate([0,0,-5]) cylinder(h = 270, r=smooth_big_bar_diameter_horizontal/2, $fn=30);
 
   // Washer hole
   translate([11,-3,20]) rotate([0,0,90]) rotate([0,90,0]) translate([0,0,-5]) cylinder(h = 10, r=11, $fn=30);
 
   // Top smooth rod insert
   // Smooth rod place
-  translate([11,2,45]) rotate([0,90,90]) cylinder(h = 270, r=4.2, $fn=30); 
+  translate([11,2,45]) rotate([0,90,90]) cylinder(h = 270, r=smooth_bar_diameter_horizontal/2, $fn=30); 
   // Ziptie
   translate([-5,9,39])  cube([30,3.5,2]);
  }

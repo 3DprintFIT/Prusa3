@@ -5,6 +5,7 @@
 // http://www.reprap.org/wiki/Prusa_Mendel
 // http://prusamendel.org
 
+include <inc/configuration.scad>
 
 module y_idler_base(){
  translate(v = [0,0,0]) cylinder(h = 19, r=8);	
@@ -14,8 +15,8 @@ module y_idler_base(){
 }
 
 module y_idler_holes(){
- translate(v = [0,0,-1]) cylinder(h = 120, r=1.8);	
- translate(v = [0,20,-1]) cylinder(h = 25, r=4.5);
+ translate(v = [0,0,-1]) cylinder(h = 120, r=m3_diameter/2, $fn=10);	
+ translate(v = [0,20,-1]) cylinder(h = 25, r=threaded_rod_diameter_horizontal/2);
  translate(v = [0,0,4]) cylinder(h = 11, r=12);
 }
 
