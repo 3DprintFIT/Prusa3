@@ -141,7 +141,7 @@ z_delta = (bushing_z[1] <= 7.7) ? 0 : bushing_z[1] - 7.7;
 m3_nut_diameter_bigger = ((m3_nut_diameter  / 2) / cos (180 / 6))*2;
 
 // functions
-include <inc/functions.scad>
+include <functions.scad>
 
 // These constants define the geometry of the complete-printer.scad
 
