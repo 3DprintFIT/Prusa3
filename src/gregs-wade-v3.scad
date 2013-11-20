@@ -148,7 +148,7 @@ block_bevel_r=7;
 base_thickness=18;
 base_length=45;
 base_leadout=16;
-base_extra_depth=15;
+base_extra_depth=28;
 
 nema17_hole_spacing=31; 
 nema17_width=1.7*25.4;
