@@ -150,6 +150,9 @@ base_length=45;
 base_leadout=16;
 base_extra_depth=28;
 
+carriage_mount_hole_depth=35;
+carriage_hole_distance=24;
+
 nema17_hole_spacing=31; 
 nema17_width=1.7*25.4;
 nema17_support_d=nema17_width-nema17_hole_spacing;
@@ -370,15 +373,17 @@ echo("bhmh", mounting_holes)
 	}
 
 	//carriage mountig holes
-	#translate([-24.5+43.7,0,3]) {
-		translate([-24,0,0]) {
-			translate([0,0,(wade_block_depth+base_extra_depth)/2+4+layer_thickness]) cylinder(r=m3_diameter/2, h=wade_block_depth+base_extra_depth, center=true);
-			translate([0, 0, 12]) cylinder(r=m3_washer_diameter/2, h=30.1, center=true);
+	#translate([-24.5+43.7,0,carriage_mount_hole_depth/2-0.1]) {
+
+		
+		translate([-carriage_hole_distance,0,0]) {
+			translate([0,0,carriage_mount_hole_depth/2+layer_thickness]) cylinder(r=m3_diameter/2, h=wade_block_depth+base_extra_depth);
+			cylinder(r=m3_washer_diameter/2, h=carriage_mount_hole_depth, center=true);
 		}
 		
 		translate([0,0,0]) {
-			translate([0,0,(wade_block_depth+base_extra_depth)/2+4+layer_thickness]) cylinder(r=m3_diameter/2, h=wade_block_depth+0.2+base_extra_depth, center=true);
-			translate([0, 0, 12]) cylinder(r=m3_washer_diameter/2, h=30.1, center=true);
+			translate([0,0,carriage_mount_hole_depth/2+layer_thickness]) cylinder(r=m3_diameter/2, h=wade_block_depth+base_extra_depth);
+			cylinder(r=m3_washer_diameter/2, h=carriage_mount_hole_depth, center=true);
 		}
 	}
 
