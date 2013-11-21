@@ -55,11 +55,11 @@ wade(hotend_mount=jhead_mount);
 //translate([50,56,15.25]) // This is the translation for the 3mm version.
 ////translate([50,56,13.92]) // This is the translation for the 1.75mm version.
 //rotate(180)
-translate([-20,0,15.25])
-rotate([0,-90,0])
+//translate([-20,0,15.25])
+//rotate([0,-90,0])
 //
 ////Place for assembly.
-wadeidler(); 
+//wadeidler(); 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -373,12 +373,12 @@ echo("bhmh", mounting_holes)
 	#translate([-24.5+43.7,0,3]) {
 		translate([-24,0,0]) {
 			translate([0,0,(wade_block_depth+base_extra_depth)/2+4+layer_thickness]) cylinder(r=m3_diameter/2, h=wade_block_depth+base_extra_depth, center=true);
-			translate([0, 0, 1]) cylinder(r=m3_washer_diameter/2, h=10.1, center=true);
+			translate([0, 0, 12]) cylinder(r=m3_washer_diameter/2, h=30.1, center=true);
 		}
 		
 		translate([0,0,0]) {
 			translate([0,0,(wade_block_depth+base_extra_depth)/2+4+layer_thickness]) cylinder(r=m3_diameter/2, h=wade_block_depth+0.2+base_extra_depth, center=true);
-			translate([0, 0, 2]) cylinder(r=m3_washer_diameter/2, h=10.1, center=true);
+			translate([0, 0, 12]) cylinder(r=m3_washer_diameter/2, h=30.1, center=true);
 		}
 	}
 
