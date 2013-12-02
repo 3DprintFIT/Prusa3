@@ -37,7 +37,7 @@ default_mounting_holes=mounting_holes_symmetrical;
 wade(hotend_mount=jhead_mount);
 
 ////CarriageVisualisation
-//translate([-8.5,20,base_extra_depth+wade_block_depth+10]) rotate([-90,180,-90]) %import("../output/x-carriage.stl");
+//translate([23.6,-24,base_extra_depth+wade_block_depth]) rotate([0,0,0]) %import("../distribution/x-carriage.stl");
 /*%translate(large_wheel_translation) {
 	translate([0,0,-5])import("../output/wade-big-h.stl");
 	rotate([0,0,25]) translate([gear_separation,0,-1]) {
@@ -55,11 +55,11 @@ wade(hotend_mount=jhead_mount);
 //translate([50,56,15.25]) // This is the translation for the 3mm version.
 ////translate([50,56,13.92]) // This is the translation for the 1.75mm version.
 //rotate(180)
-//translate([-20,0,15.25])
-//rotate([0,-90,0])
+translate([-5,10,16.25])
+rotate([0,-90,0])
 //
 ////Place for assembly.
-//wadeidler(); 
+wadeidler(); 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -169,7 +169,7 @@ motor_mount_thickness=9;
 large_wheel_translation=[50.5-(7.4444+32.0111+0.25),34,0];
 
 m8_clearance_hole=8.8;
-hole_for_608=22.3;
+hole_for_608=23;
 608_diameter=22;
 
 block_top_right=[wade_block_width,wade_block_height];
@@ -177,7 +177,7 @@ block_top_right=[wade_block_width,wade_block_height];
 layer_thickness=layer_height;
 filament_diameter=3;
 filament_feed_hole_d=(filament_diameter*1.1)/cos(180/8);
-hobbing_depth=2;
+hobbing_depth=1;
 echo ("filament_feed_hole_d", filament_feed_hole_d);
 
 //This is the distance from the centre of the filament to the centre of the hobbed bolt.
@@ -186,7 +186,7 @@ filament_feed_hole_offset=8/2-hobbing_depth+filament_diameter/2;
 echo ("filament_feed_hole_offset", filament_feed_hole_offset);
 
 idler_nut_trap_depth=7.5;
-idler_nut_thickness=4;
+idler_nut_thickness=3;
 
 gear_separation=7.4444+32.0111+0.25;
 
@@ -217,7 +217,7 @@ idler_end_length=(idler_height-2)+5;
 idler_mounting_hole_diameter=m3_diameter+0.25;
 idler_mounting_hole_elongation=1;
 idler_long_top=idler_mounting_hole_up+idler_mounting_hole_diameter/2+idler_mounting_hole_elongation+2.5;
-idler_long_bottom=idler_fulcrum_offset;
+idler_long_bottom=idler_fulcrum_offset+5+2.5;
 idler_long_side=idler_long_top+idler_long_bottom;
 
 module bearing_washer()
@@ -249,10 +249,10 @@ module wade(
 
 			// Round the ends of the base
 			translate([base_length-base_leadout,0,0])
-			cylinder(r=base_thickness/2,h=wade_block_depth+base_extra_depth,$fn=20);
+			cylinder(r=base_thickness/2,h=wade_block_depth+base_extra_depth);
 
-			translate([-base_leadout,0,0])
-			cylinder(r=base_thickness/2,h=wade_block_depth+base_extra_depth,$fn=20);
+			translate([-base_leadout,base_thickness/6,0])
+			cylinder(r=base_thickness/1.5,h=wade_block_depth+base_extra_depth);
 
 			//Provide the bevel betweeen the base and the wade block.
 			render()
@@ -260,16 +260,17 @@ module wade(
 			{
 				translate([-block_bevel_r,0,0])
 				cube([block_bevel_r*2+wade_block_width,
-					base_thickness/2+block_bevel_r,wade_block_depth+base_extra_depth]);				
-				translate([-block_bevel_r,block_bevel_r+base_thickness/2])
-				cylinder(r=block_bevel_r,h=wade_block_depth+base_extra_depth,$fn=60);
-				translate([wade_block_width+block_bevel_r,
-					block_bevel_r+base_thickness/2])
+					base_thickness/2+block_bevel_r+1,wade_block_depth+base_extra_depth]);				
+				translate([-block_bevel_r,block_bevel_r+base_thickness/2+11])
+				cylinder(r=block_bevel_r+5,h=wade_block_depth+base_extra_depth,$fn=60);
+				translate([wade_block_width+block_bevel_r,block_bevel_r+base_thickness/2])
 				cylinder(r=block_bevel_r,h=wade_block_depth+base_extra_depth,$fn=60);
 			}
+			translate([-block_bevel_r-8,0,0])
+			cube([block_bevel_r*2+wade_block_width,base_thickness/2+block_bevel_r-1,wade_block_depth+base_extra_depth]);				
 
 			// The idler hinge.
-			translate(idler_fulcrum)
+			/*translate(idler_fulcrum)
 			{
 				translate([idler_hinge_r,0,0])
 				cube([idler_hinge_r*2,idler_hinge_r*2,idler_short_side-2*idler_hinge_width-0.5],
@@ -284,10 +285,10 @@ module wade(
 						idler_short_side-2*idler_hinge_width-0.5],
 						center=true);
 				}
-			}
+			}*/
 
 			// The idler hinge support.
-			translate(idler_fulcrum)
+			/*translate(idler_fulcrum)
 			{
 				rotate(-15)
 				translate([-(idler_hinge_r+3),-idler_hinge_r-2,-wade_block_depth/2])
@@ -308,14 +309,14 @@ module wade(
 				cube([idler_hinge_r+3+15,
 					idler_hinge_r*2+4,
 					layer_thickness]);
-			}
+			}*/
 
 			//The base.
 			translate([-base_leadout,-base_thickness/2,0])
 			cube([base_length,base_thickness,wade_block_depth+base_extra_depth]);
 			//Base aligement helper
-			/*translate([-base_leadout,-base_thickness/2,wade_block_depth+base_extra_depth])
-			cube([base_length,1,layer_thickness]);*/
+			translate([-base_leadout,-base_thickness/2,wade_block_depth+base_extra_depth])
+			cube([base_length,1,layer_thickness*2]);
 			
 
 			motor_mount ();
@@ -360,7 +361,7 @@ function in_mask(mask,value)=(mask%(value*2))>(value-1);
 
 module block_holes(mounting_holes=default_mounting_holes)
 {
-echo("bhmh", mounting_holes)
+//echo("bhmh", mounting_holes)
 	//Round off the top of the block. 
 	translate([0,wade_block_height-block_bevel_r,-1])
 	render()
@@ -388,30 +389,34 @@ echo("bhmh", mounting_holes)
 	}
 
 	// Idler fulcrum hole.
-	translate(idler_fulcrum+[0,0,0.4])
+	/*translate(idler_fulcrum+[0,0,0.4])
 	cylinder(r=m3_diameter/2,h=idler_short_side-2*idler_hinge_width-0.5,center=true,$fn=16);
 
 	translate(idler_fulcrum+[0,0,idler_short_side/2-idler_hinge_width-1])
-	cylinder(r=m3_nut_diameter/2+0.25,h=1,$fn=40);
+	cylinder(r=m3_nut_diameter/2+0.25,h=1,$fn=40);*/
 
 	//Rounded cutout for idler hinge.
-	render()
+	/*render()
 	translate(idler_fulcrum)
 	difference()
 	{
 		cylinder(r=idler_hinge_r+0.5,h=idler_short_side+0.5,center=true,$fn=60);
 		cylinder(r=idler_hinge_r+1,h=idler_short_side-2*idler_hinge_width-0.5,center=true);
-	}
+	}*/
+	
+	// Idler hole
+	translate([-idler_height-hobbing_depth-3,10,0.5])
+	cube([idler_height+1.5,10,idler_short_side+1.5]);
 
 	//translate(motor_mount_translation)
 	translate(large_wheel_translation)
 	{
 
 			// Open the top to remove overhangs and to provide access to the hobbing.
-			translate([-wade_block_width+2,0,9.5])
+			/*translate([-wade_block_width+2,0,9.5])
 			cube([wade_block_width,
 				wade_block_height-large_wheel_translation[1]+1,
-				wade_block_depth]);
+				wade_block_depth]);*/
 		
 			translate([0,0,-1])
 			b608(h=9);
@@ -435,7 +440,7 @@ echo("bhmh", mounting_holes)
 			cylinder(r=filament_feed_hole_d/2,h=wade_block_depth*3,center=true,$fn=8);	
 
 			//Widened opening for hobbed bolt access.
-			translate([2,wade_block_height/2+2,wade_block_depth/2+0.2])
+			/*translate([2,wade_block_height/2+2,wade_block_depth/2+0.2])
 			rotate([90,0,0])
 			rotate(-45)
 			union()
@@ -443,7 +448,7 @@ echo("bhmh", mounting_holes)
 			cylinder(r=5,h=wade_block_height,center=true,$fn=30);	
 			translate([-5,0,0])
 			cube([10,10,wade_block_height],center=true);
-			}
+			}*/
 
 			// Mounting holes on the base.
 			//translate([0,-base_thickness/2,0])
@@ -481,10 +486,10 @@ echo("bhmh", mounting_holes)
 			cylinder(r=m3_diameter/2,h=wade_block_depth+6,$fn=8);	
 			rotate([0,0,180/6])
 			translate([0,0,wade_block_width-idler_nut_trap_depth])
-			cylinder(r=m3_nut_diameter/2,h=idler_nut_thickness,$fn=6);	
+			cylinder(r=m3_nut_diameter/2+0.5,h=idler_nut_thickness,$fn=6);	
 
 			translate([0,10/2,wade_block_width-idler_nut_trap_depth+idler_nut_thickness/2])
-			cube([m3_nut_diameter*cos(30),10,idler_nut_thickness],center=true);
+			cube([m3_nut_diameter*cos(30)+1,10,idler_nut_thickness],center=true);
 		}
 	}
 }
@@ -562,28 +567,28 @@ module wadeidler()
 			cube_fillet([idler_height,idler_long_side,idler_short_side], center=true, vertical = [0, 0, 0, 0], top = [3, 0, 0, 0], bottom = [3, 0, 0, 0]);
 
 			//Filament Guide.
-			translate([guide_height/2+idler_height/2-1,idler_long_side/2-guide_length/2,0])
-			cube([guide_height+1,guide_length,8],center=true);
+			//translate([guide_height/2+idler_height/2-1,idler_long_side/2-guide_length/2,0])
+			//cube([guide_height+1,guide_length,8],center=true);
 			}
 
 			// The fulcrum Hinge
-			translate(idler_fulcrum)
+			/*translate(idler_fulcrum)
 			rotate([0,0,-30])
 			{
 				cylinder(h=idler_short_side,r=idler_hinge_r,center=true,$fn=60);
 				translate([-idler_end_length/2,0,0])
 				cube([idler_end_length,idler_hinge_r*2,idler_short_side],center=true);
-			}
+			}*/
 		}
 
 		//Filament Path	
-		translate(idler_axis+[2+guide_height,+idler_long_side-idler_long_bottom-guide_length/2,0])
+		/*translate(idler_axis+[2+guide_height,+idler_long_side-idler_long_bottom-guide_length/2,0])
 		{
 		cube([7,guide_length+2,filament_diameter+0.5],center=true);
 		translate([-7/2,0,0])
 		rotate([90,0,0])
 		cylinder(h=guide_length+4,r=(filament_diameter+0.5)/2,center=true,$fn=16);
-		}
+		}*/
 
 		//Back of idler.
 		translate(idler_axis+[-idler_height/2+2-idler_height,
@@ -591,7 +596,7 @@ module wadeidler()
 		cube([idler_height,idler_long_side,idler_short_side+2],center=true);
 
 		//Slot for idler fulcrum mount.
-		translate(idler_fulcrum)
+		/*translate(idler_fulcrum)
 		{
 			cylinder(h=idler_short_side-2*idler_hinge_width,
 				r=idler_hinge_r+0.5,center=true,$fn=60);
@@ -599,7 +604,7 @@ module wadeidler()
 			translate([0,-idler_hinge_r-0.5,0])
 			cube([idler_hinge_r*2+1,idler_hinge_r*2+1,
 				idler_short_side-2*idler_hinge_width],center=true);
-		}
+		}*/
 
 		//Bearing cutout.
 		translate(idler_axis)
@@ -610,7 +615,7 @@ module wadeidler()
 					center=true,$fn=60);
 				for (i=[0,1])
 				rotate([180*i,0,0])
-				translate([0,0,6.9/2])
+				translate([0,0,6.9/2+0.2])
 				cylinder(r1=12/2,r2=16/2,h=2);
 			}
 			cylinder(h=idler_short_side-6,r=m8_diameter/2-0.25/*Tight*/,
@@ -618,14 +623,14 @@ module wadeidler()
 		}
 
 		//Fulcrum hole.
-		translate(idler_fulcrum)
+		/*translate(idler_fulcrum)
 		rotate(180/8)
-		cylinder(h=idler_short_side+2,r=m3_diameter/2-0.1,center=true,$fn=8);
+		cylinder(h=idler_short_side+2,r=m3_diameter/2-0.1,center=true,$fn=8);*/
 
 		//Nut trap for fulcrum screw.
-		translate(idler_fulcrum+[0,0,idler_short_side/2-idler_hinge_width-1])
+		/*translate(idler_fulcrum+[0,0,idler_short_side/2-idler_hinge_width-1])
 		rotate(360/16)
-		cylinder(h=3,r=m3_nut_diameter_horizontal/2,$fn=6);
+		cylinder(h=3,r=m3_nut_diameter_horizontal/2,$fn=6);*/
 
 		for(idler_screw_hole=[-1,1])
 		translate(idler_axis+[2-idler_height,0,0])

@@ -6,6 +6,7 @@
 // http://prusamendel.org
 
 use <inc/bearing.scad>
+include<inc/configuration.scad>
 
 module x_carriage_base(){
  // Small bearing holder
@@ -56,6 +57,11 @@ module x_carriage_fancy(){
  translate([-33-13.5,-5,0]) translate([0,45+11.5,-1]) rotate([0,0,135]) translate([0,-15,0]) cube([30,30,20]);	
 }
 
+module x_carriage_mount_helper(){
+	translate([-33.5,14.9,-0.1])
+	#cube([34,1.5,layer_height*3]);
+}
+
 // Final part
 module x_carriage(){
  difference(){
@@ -63,6 +69,7 @@ module x_carriage(){
   x_carriage_beltcut();
   x_carriage_holes();
   x_carriage_fancy();
+  x_carriage_mount_helper();
  }
 }
 
