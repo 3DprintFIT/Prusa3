@@ -8,6 +8,8 @@
 use <inc/bearing.scad>
 include<inc/configuration.scad>
 
+belt_spacing=1;
+
 module x_carriage_base(){
  // Small bearing holder
  translate([-33/2,0,0]) rotate([0,0,90]) horizontal_bearing_base(1);
@@ -25,12 +27,12 @@ module x_carriage_beltcut(){
  // Cut clearing space for the belt
  translate([-38,5,7]) cube([40,13,15]);
  // Belt slit
- translate([-66,21.7+10,6]) cube([67,0.7,15]);
+ translate([-66,21.7+10.4-belt_spacing,7]) cube([67,belt_spacing,15]);
  // Smooth entrance
  translate([-66,21.7+10,14]) rotate([45,0,0]) cube([67,15,15]);
  // Teeth cuts
  for ( i = [0 : 23] ){
-  translate([0-i*2.7,21.5+8,6]) cube([1.5,2.8,15]);
+  translate([0-i*2.7,21.3+8,7]) cube([1.5,2.8,15]);
  }
 }
 

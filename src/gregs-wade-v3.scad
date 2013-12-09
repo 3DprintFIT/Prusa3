@@ -24,7 +24,7 @@ geeksbase_mount=512;
 malcolm_extrusion_mount=1024;	//broken
 
 //default_extruder_mount=malcolm_extrusion_mount;
-default_extruder_mount=groovemount;
+default_extruder_mount=jhead_mount;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -55,11 +55,11 @@ wade(hotend_mount=jhead_mount);
 //translate([50,56,15.25]) // This is the translation for the 3mm version.
 ////translate([50,56,13.92]) // This is the translation for the 1.75mm version.
 //rotate(180)
-translate([-5,10,16.25])
-rotate([0,-90,0])
+//translate([-5,10,16.25])
+//rotate([0,-90,0])
 //
 ////Place for assembly.
-wadeidler(); 
+//wadeidler(); 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
@@ -452,7 +452,7 @@ module block_holes(mounting_holes=default_mounting_holes)
 
 			// Mounting holes on the base.
 			//translate([0,-base_thickness/2,0])
-			/*translate(
+			translate(
 				(mounting_holes==mounting_holes_legacy)?[-3.4,0,-1]:[0,0,0])
 			for (mount=[0:1])
 			{
@@ -460,7 +460,7 @@ module block_holes(mounting_holes=default_mounting_holes)
 					-large_wheel_translation[1]-1-base_thickness/2,wade_block_depth/2])
 				rotate([-90,0,0])
 				rotate(360/16)
-				cylinder(r=m4_diameter/2,h=base_thickness+2,$fn=8);	
+				cylinder(r=m3_diameter/2,h=base_thickness+2,$fn=8);	
 	
 				translate([-filament_feed_hole_offset+25*((mount<1)?1:-1),
 					-large_wheel_translation[1],
@@ -468,8 +468,8 @@ module block_holes(mounting_holes=default_mounting_holes)
 				rotate([-90,0,0])
 			//fixme: (correct height
 				//cylinder(r=m4_nut_diameter/2,h=base_thickness,$fn=6);	
-				cylinder(r=m4_nut_diameter/2,h=29.3,$fn=6);
-			}*/
+				cylinder(r=m3_nut_diameter/2,h=29.3,$fn=6);
+			}
 
 	}
 
