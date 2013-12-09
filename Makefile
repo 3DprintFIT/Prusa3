@@ -36,7 +36,7 @@ ARRANGE_TARGETS = \
 
 STL_DIR=distribution/
 SRC_DIR=src/
-PLATE_DIMMENSIONS=120
+PLATE_DIMMENSIONS=125
 SIMARRANGE=/usr/local/bin/simarrange
 
 all: default arrange

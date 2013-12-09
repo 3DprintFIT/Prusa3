@@ -55,11 +55,11 @@ wade(hotend_mount=jhead_mount);
 //translate([50,56,15.25]) // This is the translation for the 3mm version.
 ////translate([50,56,13.92]) // This is the translation for the 1.75mm version.
 //rotate(180)
-//translate([-5,10,16.25])
-//rotate([0,-90,0])
+translate([-5,10,16.25])
+rotate([0,-90,0])
 //
 ////Place for assembly.
-//wadeidler(); 
+wadeidler(); 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /**
