@@ -35,11 +35,12 @@ ARRANGE_TARGETS = \
 -n distribution/z-axis-top.stl+1
 
 STL_DIR=distribution/
+IMG_DIR=images/
 SRC_DIR=src/
-PLATE_DIMMENSIONS=125
+PLATE_DIMMENSIONS=120
 SIMARRANGE=/usr/local/bin/simarrange
 
-all: default arrange
+all: default 
 
 calibration:
 	openscad -m make -o calibration.stl $(SRC_DIR)calibration.scad
@@ -48,12 +49,18 @@ default: $(addprefix $(STL_DIR),$(TARGETS))
 
 $(addprefix $(STL_DIR),$(TARGETS)):
 	openscad -m make -o $@ $(patsubst %.stl,%.scad,$(SRC_DIR)$(subst $(STL_DIR),,$@))
+	
+images: $(addprefix $(IMG_DIR),$(TARGETS))
+
+$(addprefix $(IMG_DIR),$(TARGETS)):
+	openscad -m make --render -o $(patsubst %.stl,%.png,$@) $(patsubst %.stl,%.scad,$(SRC_DIR)$(subst $(IMG_DIR),,$@))
 
 arrange: default
 	 $(SIMARRANGE) -x $(PLATE_DIMMENSIONS) -y $(PLATE_DIMMENSIONS) $(ARRANGE_TARGETS)
 	 
 clean:
 	rm -f $(STL_DIR)*.stl
+	rm -f $(IMG_DIR)*.png
 	
 	
 	

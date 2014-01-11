@@ -4,6 +4,7 @@
 // Extruder based on prusa git repo.
 // http://www.thingiverse.com/thing:6713
 // modified for i3 by vlnofka <vlnofka@gmail.com>
+// modified for i3-vanilla by marekzehra <marek@zehra.cz>
 
 include <inc/configuration.scad>
 include <inc/functions.scad>
@@ -28,9 +29,10 @@ default_extruder_mount=jhead_mount;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// 0 for no holes
 mounting_holes_legacy=1;
 mounting_holes_symmetrical=2;
-default_mounting_holes=mounting_holes_symmetrical;
+default_mounting_holes=0;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -55,7 +57,7 @@ wade(hotend_mount=jhead_mount);
 //translate([50,56,15.25]) // This is the translation for the 3mm version.
 ////translate([50,56,13.92]) // This is the translation for the 1.75mm version.
 //rotate(180)
-translate([-5,10,16.25])
+translate([-5,10,16.65])
 rotate([0,-90,0])
 //
 ////Place for assembly.
@@ -177,7 +179,7 @@ block_top_right=[wade_block_width,wade_block_height];
 layer_thickness=layer_height;
 filament_diameter=3;
 filament_feed_hole_d=(filament_diameter*1.1)/cos(180/8);
-hobbing_depth=1;
+hobbing_depth=0.5;
 echo ("filament_feed_hole_d", filament_feed_hole_d);
 
 //This is the distance from the centre of the filament to the centre of the hobbed bolt.
@@ -452,6 +454,7 @@ module block_holes(mounting_holes=default_mounting_holes)
 
 			// Mounting holes on the base.
 			//translate([0,-base_thickness/2,0])
+			if(mounting_holes != 0){
 			translate(
 				(mounting_holes==mounting_holes_legacy)?[-3.4,0,-1]:[0,0,0])
 			for (mount=[0:1])
@@ -470,20 +473,21 @@ module block_holes(mounting_holes=default_mounting_holes)
 				//cylinder(r=m4_nut_diameter/2,h=base_thickness,$fn=6);	
 				cylinder(r=m3_nut_diameter/2,h=29.3,$fn=6);
 			}
+			}
 
 	}
 
 	// Idler mounting holes and nut traps.
 	for (idle=[-1,1])
 	{
-		translate([0,
+		translate([-10,
 			idler_mounting_hole_up+large_wheel_translation[1],
 			wade_block_depth/2+idler_mounting_hole_across*idle])
 		rotate([0,90,0])
 		{
 			rotate([0,0,180/8])
 			translate([0,0,-1])
-			cylinder(r=m3_diameter/2,h=wade_block_depth+6,$fn=8);	
+			cylinder(r=m3_diameter/2+0.2,h=wade_block_depth+6,$fn=8);	
 			rotate([0,0,180/6])
 			translate([0,0,wade_block_width-idler_nut_trap_depth])
 			cylinder(r=m3_nut_diameter/2+0.5,h=idler_nut_thickness,$fn=6);	
