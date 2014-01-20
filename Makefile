@@ -37,8 +37,8 @@ ARRANGE_TARGETS = \
 STL_DIR=distribution/
 IMG_DIR=images/
 SRC_DIR=src/
-PLATE_DIMMENSIONS=120
-SIMARRANGE=/usr/local/bin/simarrange
+PLATE_DIMMENSIONS=122
+SIMARRANGE=simarrange
 
 all: default 
 
@@ -56,7 +56,7 @@ $(addprefix $(IMG_DIR),$(TARGETS)):
 	openscad -m make --render -o $(patsubst %.stl,%.png,$@) $(patsubst %.stl,%.scad,$(SRC_DIR)$(subst $(IMG_DIR),,$@))
 
 arrange: default
-	 $(SIMARRANGE) -x $(PLATE_DIMMENSIONS) -y $(PLATE_DIMMENSIONS) $(ARRANGE_TARGETS)
+	 $(SIMARRANGE) -x $(PLATE_DIMMENSIONS) -y $(PLATE_DIMMENSIONS) -m $(ARRANGE_TARGETS)
 	 
 clean:
 	rm -f $(STL_DIR)*.stl
