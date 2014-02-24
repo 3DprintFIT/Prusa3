@@ -41,10 +41,10 @@ wade(hotend_mount=jhead_mount);
 ////CarriageVisualisation
 //translate([23.6,-24,base_extra_depth+wade_block_depth]) rotate([0,0,0]) %import("../distribution/x-carriage.stl");
 /*%translate(large_wheel_translation) {
-	translate([0,0,-5])import("../output/wade-big-h.stl");
+	//translate([0,0,-5])import("../output/wade-big-h.stl");
 	rotate([0,0,25]) translate([gear_separation,0,-1]) {
-		rotate([180,0,0]) import("../output/wade-small-h.stl");
-		rotate([0,0,-25]) translate([0,0,2]) {//nema17(places=[1,1,1,1], holes=true, shadow=5, $fn=7, h=8);
+		//rotate([180,0,0]) import("../output/wade-small-h.stl");
+		rotate([0,0,-25]) translate([0,0,2]) {nema17(places=[1,1,1,1], holes=true, shadow=5, $fn=7, h=8);
 		}
 	}
 }*/
@@ -141,7 +141,7 @@ wadeidler();
 //===================================================
 // Parameters defining the wade body:
 
-wade_block_height=55;
+wade_block_height=65;
 wade_block_width=24;
 wade_block_depth=28;
 
@@ -150,7 +150,7 @@ block_bevel_r=7;
 base_thickness=18;
 base_length=45;
 base_leadout=16;
-base_extra_depth=28;
+base_extra_depth=3;
 
 carriage_mount_hole_depth=35;
 carriage_hole_distance=24;
@@ -165,10 +165,10 @@ screw_head_recess_depth=3;
 motor_mount_rotation=0;
 //motor_mount_translation=[50.5,34+5,0];
 //motor_mount_translation=[46.78,50.78,0];
-motor_mount_translation=[46.78,50.78,0];
+motor_mount_translation=[46.78,50.78+10,0];
 motor_mount_thickness=9;
 
-large_wheel_translation=[50.5-(7.4444+32.0111+0.25),34,0];
+large_wheel_translation=[50.5-(7.4444+32.0111+0.25),34+10,0];
 
 m8_clearance_hole=8.8;
 hole_for_608=23;
@@ -376,7 +376,7 @@ module block_holes(mounting_holes=default_mounting_holes)
 	}
 
 	//carriage mountig holes
-	#translate([-24.5+43.7,0,carriage_mount_hole_depth/2-0.1]) {
+	#translate([-24.5+43.7,0,carriage_mount_hole_depth/2-0.1-10]) {
 
 		
 		translate([-carriage_hole_distance,0,0]) {
@@ -420,23 +420,32 @@ module block_holes(mounting_holes=default_mounting_holes)
 				wade_block_height-large_wheel_translation[1]+1,
 				wade_block_depth]);*/
 		
-			translate([0,0,-1])
-			b608(h=9);
+			translate([0,0,-1]){
+				b608(h=9);
+				translate([-19,-11.4,0])
+				cube([20,22.8,9]);
+			}
 		
-			translate([0,0,20])
-			b608(h=9);
+			translate([0,0,20]){
+				b608(h=9);
+				translate([-19,-11.4,0])
+				cube([20,22.8,9]);
+			}
 		
 			translate([-13,0,9.5])
 			b608(h=wade_block_depth);
 		
-			translate([0,0,8+layer_thickness])
-			cylinder(r=m8_clearance_hole/2,h=wade_block_depth-(8+layer_thickness)+2);	
+			translate([0,0,8+layer_thickness]){
+				cylinder(r=m8_clearance_hole/2,h=wade_block_depth-(8+layer_thickness)+2);	
+				translate([-m8_clearance_hole/2-5,0,(wade_block_depth-(8+layer_thickness)+2)/2])
+				#cube([m8_clearance_hole+10,m8_clearance_hole,wade_block_depth-(8+layer_thickness)+2], center=true);
+			}
 
 			translate([0,0,20-2])
 			cylinder(r=16/2,h=wade_block_depth-(8+layer_thickness)+2);	
 
 			// Filament feed.
-			translate([-filament_feed_hole_offset,0,wade_block_depth/2])
+			translate([-filament_feed_hole_offset,-10,wade_block_depth/2])
 			rotate([90,0,0])
 			rotate(360/16)
 			cylinder(r=filament_feed_hole_d/2,h=wade_block_depth*3,center=true,$fn=8);	
