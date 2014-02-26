@@ -219,7 +219,7 @@ idler_end_length=(idler_height-2)+5;
 idler_mounting_hole_diameter=m3_diameter+0.25;
 idler_mounting_hole_elongation=1;
 idler_long_top=idler_mounting_hole_up+idler_mounting_hole_diameter/2+idler_mounting_hole_elongation+2.5;
-idler_long_bottom=idler_fulcrum_offset+5+2.5;
+idler_long_bottom=idler_fulcrum_offset+5+2.5+10;
 idler_long_side=idler_long_top+idler_long_bottom;
 
 module bearing_washer()
