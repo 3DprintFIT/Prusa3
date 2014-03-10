@@ -36,7 +36,7 @@ default_mounting_holes=0;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-wade(hotend_mount=jhead_mount);
+wade(hotend_mount=jhead_mount,mounting_holes=0);
 
 ////CarriageVisualisation
 //translate([23.6,-24,base_extra_depth+wade_block_depth]) rotate([0,0,0]) %import("../distribution/x-carriage.stl");
@@ -253,7 +253,7 @@ module wade(
 			translate([base_length-base_leadout,0,0])
 			cylinder(r=base_thickness/2,h=wade_block_depth+base_extra_depth);
 
-			translate([-base_leadout,base_thickness/6,0])
+			translate([-base_leadout-((mounting_holes == 0 )?0:10),base_thickness/6,0])
 			cylinder(r=base_thickness/1.5,h=wade_block_depth+base_extra_depth);
 
 			//Provide the bevel betweeen the base and the wade block.
@@ -268,8 +268,8 @@ module wade(
 				translate([wade_block_width+block_bevel_r,block_bevel_r+base_thickness/2])
 				cylinder(r=block_bevel_r,h=wade_block_depth+base_extra_depth,$fn=60);
 			}
-			translate([-block_bevel_r-8,0,0])
-			cube([block_bevel_r*2+wade_block_width,base_thickness/2+block_bevel_r-1,wade_block_depth+base_extra_depth]);				
+			translate([-block_bevel_r-8-((mounting_holes == 0 )?0:10),0,0])
+			cube([block_bevel_r*2+wade_block_width+((mounting_holes == 0 )?0:10),base_thickness/2+block_bevel_r-1,wade_block_depth+base_extra_depth]);				
 
 			// The idler hinge.
 			/*translate(idler_fulcrum)
@@ -314,8 +314,8 @@ module wade(
 			}*/
 
 			//The base.
-			translate([-base_leadout,-base_thickness/2,0])
-			cube([base_length,base_thickness,wade_block_depth+base_extra_depth]);
+			translate([-base_leadout - ((mounting_holes == 0 )?0:10),-base_thickness/2,0])
+			cube([base_length+((mounting_holes == 0 )?0:10),base_thickness,wade_block_depth+base_extra_depth]);
 			//Base aligement helper
 			translate([-base_leadout,-base_thickness/2,wade_block_depth+base_extra_depth])
 			cube([base_length,1,layer_thickness*2]);
