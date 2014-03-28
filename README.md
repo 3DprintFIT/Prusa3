@@ -1,5 +1,6 @@
 Prusa iteration 3
 =================
+![Model render](./Prusa3_render.png =400x "Preview of assembled printer" )
 
 Published under GPL v3
 
