@@ -1,10 +1,10 @@
 Prusa iteration 3
 =================
-![Model render](./Prusa3_render.png =400x "Preview of assembled printer" )
+![Model render](Prusa3_render.png "Preview of assembled printer" )
 
 Published under GPL v3
 
-This repository containes modifications from 3DPritFIT, such as replacing extruder (now uses Greg-Wade-v3) and adding minitronic holder.
+This repository containes modifications from 3DPrintFIT, such as replacing extruder (now uses Greg-Wade-v3) and adding minitronic holder.
 
 To start:
 ---------
