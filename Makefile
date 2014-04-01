@@ -14,7 +14,8 @@ y-corners.stl \
 y-idler.stl \
 y-motor.stl \
 z-axis-bottom.stl \
-z-axis-top.stl
+z-axis-top.stl \
+z-endstop-holder.stl
 
 ARRANGE_TARGETS = \
 -n distribution/belt-guide.stl+4 \
@@ -32,7 +33,8 @@ ARRANGE_TARGETS = \
 -n distribution/y-idler.stl+1 \
 -n distribution/y-motor.stl+1 \
 -n distribution/z-axis-bottom.stl+1 \
--n distribution/z-axis-top.stl+1
+-n distribution/z-axis-top.stl+1 \
+-n distribution/z-endstop-holder.stl+1
 
 STL_DIR=distribution/
 IMG_DIR=images/
